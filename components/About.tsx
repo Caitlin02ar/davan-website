@@ -58,9 +58,13 @@ export default function About() {
           </h1>
         </div>
 
-        <div className="mt-16 grid grid-cols-[0.75fr_auto_1.6fr] gap-8">
+        {/* ─── GRID ─────────────────────────────────────────────────────────────
+            Mobile : 1 kolom  → info → garis horizontal → bento
+            Desktop: 3 kolom  → info | garis vertikal | bento
+        ────────────────────────────────────────────────────────────────────── */}
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-[0.75fr_auto_1.6fr] gap-8">
 
-          {/* KIRI — single viewport trigger, all children animate via variants */}
+          {/* KIRI — info items */}
           <motion.div
             className="flex flex-col gap-10"
             initial="hidden"
@@ -68,14 +72,13 @@ export default function About() {
             viewport={{ once: true, amount: 0.2 }}
           >
             {landingData.vision.info.map((item, index) => {
-              // baseDelay accounts for all words of all previous items
               const prevWords = landingData.vision.info
                 .slice(0, index)
                 .reduce((acc, it) => acc + it.description.split(" ").length, 0);
               const baseDelay = index * 0.15 + prevWords * 0.045;
 
               return (
-                <div key={index} className="max-w-[240px]">
+                <div key={index} className="max-w-full md:max-w-[240px]">
                   <motion.h3
                     className="font-body text-[1.2rem] uppercase text-primary font-semibold mb-2"
                     variants={{
@@ -117,8 +120,13 @@ export default function About() {
             })}
           </motion.div>
 
-          {/* LINE */}
-          <div className="flex items-stretch">
+          {/* GARIS ───────────────────────────────────────────────────────────
+              Mobile : horizontal (h-px, scaleX dari kiri)
+              Desktop: vertikal  (w-px, scaleY dari atas)  — tampilan lama
+          ──────────────────────────────────────────────────────────────────── */}
+
+          {/* Vertikal — desktop only */}
+          <div className="hidden md:flex items-stretch">
             <motion.div
               className="w-px bg-primary"
               initial={{ scaleY: 0 }}
@@ -129,7 +137,19 @@ export default function About() {
             />
           </div>
 
-          {/* BENTO */}
+          {/* Horizontal — mobile only */}
+          <div className="flex md:hidden items-center">
+            <motion.div
+              className="h-px w-full bg-primary"
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.8, ease, delay: leftFinishDelay }}
+              style={{ transformOrigin: "left" }}
+            />
+          </div>
+
+          {/* BENTO ─────────────────────────────────────────────────────────── */}
           <div>
             <div className="overflow-hidden mb-5">
               <motion.h3
@@ -137,13 +157,19 @@ export default function About() {
                 initial={{ x: -35, opacity: 0 }}
                 whileInView={{ x: 0, opacity: 1 }}
                 viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.95, ease, delay: leftFinishDelay + 0.6 }}
+                transition={{
+                  duration: 0.95,
+                  ease,
+                  delay: leftFinishDelay + 0.6,
+                }}
               >
                 {landingData.vision.headingBento}
               </motion.h3>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            {/* Mobile : 1 kolom, semua full-width
+                Desktop: 2 kolom, index >= 2 span penuh */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {landingData.vision.bento.map((item, index) => (
                 <motion.div
                   key={index}
@@ -160,15 +186,17 @@ export default function About() {
                     ${index === 0 || index === 2
                       ? "bg-primary text-black"
                       : "bg-gray text-white"}
-                    ${index >= 2 ? "col-span-2" : ""}
+                    ${index >= 2 ? "sm:col-span-2" : ""}
                   `}
                 >
                   <h4 className="mb-3 font-body font-bold text-xl leading-tight">
                     {item.title}
                   </h4>
-                  <p className={`text-sm leading-relaxed font-normal ${
-                    index === 0 || index === 2 ? "text-black" : "text-white"
-                  }`}>
+                  <p
+                    className={`text-sm leading-relaxed font-normal ${
+                      index === 0 || index === 2 ? "text-black" : "text-white"
+                    }`}
+                  >
                     {item.description}
                   </p>
                 </motion.div>
