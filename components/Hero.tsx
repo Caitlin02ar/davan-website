@@ -25,8 +25,7 @@ export default function Hero() {
 
       <motion.div
         className="relative h-screen w-full"
-        style={{ opacity: videoOpacity }}
-      >
+        style={{ opacity: videoOpacity }}>
         <video
           autoPlay
           loop
@@ -36,18 +35,16 @@ export default function Hero() {
         >
           <source src="/video/hero-section.webm" type="video/webm" />
         </video>
-        <div className="absolute inset-0 bg-black/35" />
+        <div className="absolute inset-0 bg-black/5" />
       </motion.div>
-      <div className="absolute inset-0 bg-black/50" />
+      {/* <div className="absolute inset-0 bg-black/50" /> */}
 
-      {/* CONTENT — fades out + drifts up on scroll */}
       <motion.div
         className="absolute inset-0 flex items-center justify-center px-5"
         style={{ opacity: contentOpacity, y: contentY }}
       >
         <div className="flex w-full max-w-7xl flex-col items-center gap-10 text-center sm:gap-12 md:gap-14 lg:gap-16">
 
-          {/* HEADING */}
           <motion.div
             initial="hidden"
             animate="show"

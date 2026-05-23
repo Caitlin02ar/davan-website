@@ -11,7 +11,7 @@ const ease = [0.22, 1, 0.36, 1] as const;
 export default function CTA() {
   const data = landingData.cta;
   return (
-    <section id="contact" className="flex items-center relative min-h-screen overflow-hidden bg-black text-white">
+    <section id="contact" className="flex items-center relative min-h-screen overflow-hidden bg-dark text-white">
       <Image
         src="/photos/Contact and Footer.webp"
         alt=""
@@ -20,7 +20,6 @@ export default function CTA() {
         className="object-cover"
       />
 
-      <div className="absolute inset-0 bg-black/10" />
 
       <div className="relative z-10 mx-auto flex h-full w-full max-w-[1100px] items-center px-6 py-16">
         <div className="grid w-full grid-cols-1 items-start gap-12 md:grid-cols-[1fr_0.75fr] md:items-center md:gap-16">

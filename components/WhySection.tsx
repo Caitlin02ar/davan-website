@@ -24,58 +24,45 @@ export default function WhySection() {
     <section
       id="why-davan"
       ref={sectionRef}
-      className="relative min-h-screen overflow-hidden"
-    >
-      {/* Background — scroll-driven fade + scale in */}
+      className="relative min-h-screen overflow-hidden">
       <motion.div
         className="absolute inset-0"
-        style={{ opacity: bgOpacity, scale: bgScale }}
-      >
+        style={{ opacity: bgOpacity, scale: bgScale }}>
         <img
           src="/photos/about-us.webp"
           alt="About Us"
           className="h-full w-full object-cover object-[90%_center]"
         />
       </motion.div>
-
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/30 z-[1]" />
-
-      {/* Content */}
       <div className="relative z-10 flex min-h-screen items-center px-8 md:px-40">
         <div className="max-w-2xl">
 
-          {/* HEADING */}
           <div className="overflow-hidden">
             <motion.div
               initial={{ x: -120, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 1.3, ease: easeOutExpo }}
-              className="flex items-center gap-3"
-            >
-              <h1 className="font-heading text-xl md:text-5xl text-white leading-none">
+              className="flex items-center gap-3">
+              <h1 className="font-heading text-xl md:text-[3rem] text-white leading-none">
                 {landingData.about.title}
               </h1>
-              <h1 className="font-heading text-xl md:text-5xl text-primary leading-none">
+              <h1 className="font-heading text-xl md:text-[3rem] text-primary leading-none">
                 {landingData.about.titleColor}
               </h1>
             </motion.div>
           </div>
 
-          {/* SUBTITLE */}
           <motion.p
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 1.1, delay: 0.2, ease: easeOutExpo }}
-            className="mt-4 text-[1rem] md:text-base text-white leading-relaxed font-normal"
-          >
+            className="mt-4 text-[1rem] md:text-base text-white leading-relaxed font-normal">
             <span className="font-bold">{landingData.about.subtitle.bold}</span>
             {landingData.about.subtitle.normal}
           </motion.p>
 
-          {/* DESCRIPTION */}
           <p className="mt-8 max-w-xl text-sm text-white leading-relaxed font-light">
             {landingData.about.description.split(" ").map((word, index) => (
               <motion.span

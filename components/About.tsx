@@ -6,7 +6,6 @@ import { landingData } from "@/app/data/landing";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-// Calculate leftFinishDelay based on actual sequential delays
 const leftFinishDelay = landingData.vision.info.reduce((acc, item, index) => {
   const prevWords = landingData.vision.info
     .slice(0, index)
@@ -27,44 +26,33 @@ export default function About() {
             initial={{ y: 16, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.9, ease }}
-          >
+            transition={{ duration: 0.9, ease }}>
             <Tag text={landingData.vision.tag} />
           </motion.div>
 
-          <h1 className="max-w-3xl font-heading text-1xl uppercase leading-[1.15] tracking-tight md:text-4xl">
+          <h1 className="max-w-3xl font-heading text-4xl uppercase leading-[1.05] tracking-tight md:text-[2rem]">
             <div className="overflow-hidden">
-              <motion.span
-                className="block"
+              <motion.div
                 initial={{ x: -50, opacity: 0 }}
                 whileInView={{ x: 0, opacity: 1 }}
                 viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 1.0, ease, delay: 0.1 }}
+                transition={{ duration: 1, ease, delay: 0.1 }}
+                className="inline"
               >
-                {landingData.vision.heading}
-              </motion.span>
-            </div>
-            <div className="overflow-hidden">
-              <motion.span
-                className="block text-primary"
-                initial={{ x: -50, opacity: 0 }}
-                whileInView={{ x: 0, opacity: 1 }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 1.0, ease, delay: 0.28 }}
-              >
-                {landingData.vision.headingColor}
-              </motion.span>
+                <span className="text-white">
+                  {landingData.vision.heading}{" "}
+                </span>
+
+                <span className="text-primary">
+                  {landingData.vision.headingColor}
+                </span>
+              </motion.div>
             </div>
           </h1>
         </div>
 
-        {/* ─── GRID ─────────────────────────────────────────────────────────────
-            Mobile : 1 kolom  → info → garis horizontal → bento
-            Desktop: 3 kolom  → info | garis vertikal | bento
-        ────────────────────────────────────────────────────────────────────── */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-[0.75fr_auto_1.6fr] gap-8">
 
-          {/* KIRI — info items */}
           <motion.div
             className="flex flex-col gap-10"
             initial="hidden"
@@ -120,12 +108,6 @@ export default function About() {
             })}
           </motion.div>
 
-          {/* GARIS ───────────────────────────────────────────────────────────
-              Mobile : horizontal (h-px, scaleX dari kiri)
-              Desktop: vertikal  (w-px, scaleY dari atas)  — tampilan lama
-          ──────────────────────────────────────────────────────────────────── */}
-
-          {/* Vertikal — desktop only */}
           <div className="hidden md:flex items-stretch">
             <motion.div
               className="w-px bg-primary"
@@ -149,7 +131,6 @@ export default function About() {
             />
           </div>
 
-          {/* BENTO ─────────────────────────────────────────────────────────── */}
           <div>
             <div className="overflow-hidden mb-5">
               <motion.h3
@@ -166,9 +147,6 @@ export default function About() {
                 {landingData.vision.headingBento}
               </motion.h3>
             </div>
-
-            {/* Mobile : 1 kolom, semua full-width
-                Desktop: 2 kolom, index >= 2 span penuh */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {landingData.vision.bento.map((item, index) => (
                 <motion.div

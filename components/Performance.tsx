@@ -28,7 +28,6 @@ export default function Performance() {
     const ctx = gsap.context(() => {
       const section = sectionRef.current!;
 
-      // ── Master timeline ───────────────────────────────────
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
@@ -44,7 +43,6 @@ export default function Performance() {
         { autoAlpha: 1, y: 0, duration: 0.55 }
       );
 
-      // 2. HEADING
       tl.fromTo(".perf-heading",
         { autoAlpha: 0, x: -44 },
         { autoAlpha: 1, x: 0, duration: 0.6 },
@@ -82,8 +80,6 @@ export default function Performance() {
         "+=0.15"
       );
 
-      // 5. FRAMEWORK — same pattern as OurTechnology:
-      //    per step: tween line scaleX to (i+1)/total → dot pop → title → desc
       gsap.set(lineRef.current, { scaleX: 0, transformOrigin: "left center", autoAlpha: 0 });
       gsap.set(dotRefs.current,   { autoAlpha: 0, scale: 0 });
       gsap.set(titleRefs.current, { autoAlpha: 0, y: 12 });
@@ -139,7 +135,6 @@ export default function Performance() {
       <div className="relative z-10 mx-auto max-w-5xl">
         <div className="grid items-start gap-20 md:grid-cols-[0.95fr_1.05fr]">
 
-          {/* LEFT */}
           <div>
             <div className="perf-tag">
             <motion.div
@@ -152,7 +147,7 @@ export default function Performance() {
               <Tag text="Demonstrated Performance" />
             </motion.div>            
             </div>
-            <h1 className="perf-heading mt-8 max-w-5xl font-heading text-3xl uppercase leading-[1.5] text-primary md:text-4xl">
+            <h1 className="perf-heading mt-8 max-w-5xl font-heading text-3xl uppercase leading-[1.5] text-primary md:text-[2rem]">
               {landingData.demonstrated.heading}
             </h1>
           </div>

@@ -20,7 +20,6 @@ function BoldText({ text }: { text: string }) {
   );
 }
  
-// ─── Types ───────────────────────────────────────────────────────────────────
 type DropdownItem = {
   title: string;
   description: string;

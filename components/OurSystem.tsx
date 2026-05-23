@@ -1,19 +1,68 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { landingData } from "@/app/data/landing";
 import PillarCard from "./PillarCard";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
+function ArrowButton({
+  direction,
+  onClick,
+}: {
+  direction: "prev" | "next";
+  onClick: () => void;
+}) {
+  return (
+    <motion.button
+      type="button"
+      onClick={onClick}
+      className="group flex h-11 w-11 items-center justify-center rounded-full border border-primary bg-transparent text-primary transition-colors duration-300 hover:bg-primary hover:text-dark"
+      whileHover={{ scale: 1.08 }}
+      whileTap={{ scale: 0.93 }}
+      transition={{ duration: 0.2, ease }}
+      aria-label={direction === "prev" ? "Previous card" : "Next card"}
+    >
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 18 18"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="transition-colors duration-300"
+      >
+        {direction === "prev" ? (
+          <path
+            d="M11 13.5L6.5 9L11 4.5"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        ) : (
+          <path
+            d="M7 4.5L11.5 9L7 13.5"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        )}
+      </svg>
+    </motion.button>
+  );
+}
+
 export default function OurSystem() {
   const [activeIndex, setActiveIndex] = useState(0);
   const cards = landingData.system.card;
 
-  const next = () => {
+  const prev = () =>
+    setActiveIndex((i) => (i === 0 ? cards.length - 1 : i - 1));
+
+  const next = () =>
     setActiveIndex((i) => (i === cards.length - 1 ? 0 : i + 1));
-  };
 
   return (
     <section
@@ -80,7 +129,21 @@ export default function OurSystem() {
           </p>
         </div>
 
+        {/* Cards + Arrow Buttons */}
         <div className="relative mx-auto mt-8 max-w-[900px]">
+
+          {/* Prev button — vertically centered on card */}
+          <motion.div
+            className="absolute left-0 top-1/2 z-50 -translate-y-1/2"
+            initial={{ opacity: 0, x: -16 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease, delay: 1.1 }}
+          >
+            <ArrowButton direction="prev" onClick={prev} />
+          </motion.div>
+
+          {/* Cards stack */}
           <div className="relative left-1/2 w-[760px] -translate-x-1/2">
             {cards.map((card, index) => {
               const offset = index - activeIndex;
@@ -125,6 +188,18 @@ export default function OurSystem() {
               <PillarCard {...cards[activeIndex]} isActive={true} />
             </div>
           </div>
+
+          {/* Next button — vertically centered on card */}
+          <motion.div
+            className="absolute right-0 top-1/2 z-50 -translate-y-1/2"
+            initial={{ opacity: 0, x: 16 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease, delay: 1.1 }}
+          >
+            <ArrowButton direction="next" onClick={next} />
+          </motion.div>
+
         </div>
 
       </div>
