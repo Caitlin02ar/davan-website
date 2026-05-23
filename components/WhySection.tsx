@@ -32,7 +32,8 @@ export default function WhySection() {
         />
       </motion.div>
       <div className="relative z-10 flex min-h-screen items-center px-8 md:px-40">
-        <div className="max-w-2xl">
+        <div className="mx-auto w-full max-w-4xl">
+          <div className="max-w-2xl">
 
           <div className="overflow-hidden">
             <motion.div
@@ -78,6 +79,7 @@ export default function WhySection() {
               </motion.span>
             ))}
           </p>
+        </div>
         </div>
       </div>
     </section>

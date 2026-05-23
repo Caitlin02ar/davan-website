@@ -79,7 +79,7 @@ export default function OurSystem() {
         <source src="/video/Pillar.webm" type="video/webm" />
       </video>
 
-      <div className="relative z-10 mx-auto max-w-5xl text-center">
+      <div className="relative z-10 mx-auto max-w-4xl text-center">
 
         <div className="overflow-hidden">
           <motion.h2

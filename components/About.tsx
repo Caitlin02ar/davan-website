@@ -13,7 +13,7 @@ const BENTO_BASE_DELAY = DIVIDER_DELAY + 0.35;
 export default function About() {
   return (
     <main id="about-us" className="px-8 py-16 sm:px-6 sm:py-24 bg-dark">
-      <div className="mx-auto w-full max-w-5xl">
+      <div className="mx-auto w-full max-w-4xl">
         <div className="flex flex-col items-start gap-4">
 
           <motion.div

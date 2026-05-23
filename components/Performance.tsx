@@ -126,7 +126,7 @@ export default function Performance() {
         priority
         className="object-cover object-[10%_center]"/>
 
-      <div className="relative z-10 mx-auto max-w-5xl">
+      <div className="relative z-10 mx-auto max-w-4xl">
         <div className="grid items-start gap-20 md:grid-cols-[0.95fr_1.05fr]">
           <div>
             <div className="perf-tag">

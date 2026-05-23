@@ -21,7 +21,7 @@ export default function CTA() {
       />
 
 
-      <div className="relative z-10 mx-auto flex h-full w-full max-w-[1100px] items-center px-6 py-16">
+      <div className="relative z-10 mx-auto flex h-full w-full max-w-4xl items-center px-6 py-16">
         <div className="grid w-full grid-cols-1 items-start gap-12 md:grid-cols-[1fr_0.75fr] md:items-center md:gap-16">
 
           {/* LEFT */}
