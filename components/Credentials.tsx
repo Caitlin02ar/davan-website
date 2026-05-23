@@ -9,7 +9,15 @@ export default function Credentials() {
   return (
     <section className="relative w-full overflow-hidden bg-black py-16">
       <div className="mb-10 flex items-center justify-center">
-        <Tag text={landingData.credentials.tag} />
+        <motion.div
+          initial={{ y: 50, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true, amount: 0.5 }}  
+          transition={{ duration: 3, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <Tag text={landingData.credentials.tag} />
+        </motion.div>
+        
       </div>
 
       {/* Fade kiri */}

@@ -33,7 +33,6 @@ export default function Navbar() {
     setActiveSection(id);
     setMenuOpen(false);
 
-    // hapus hash dari URL, jadi tidak numpuk #
     window.history.replaceState(null, "", window.location.pathname);
   };
 
@@ -102,7 +101,7 @@ export default function Navbar() {
               background: "rgba(40, 40, 38, 0.75)",
               backdropFilter: "blur(20px)",
               WebkitBackdropFilter: "blur(20px)",
-              border: "1px solid rgba(255,255,255,0.08)",
+              border: "1px solid rgba(255, 255, 255, 0.27)",
               boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
             }}
           >

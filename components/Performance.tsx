@@ -6,6 +6,7 @@ import { landingData } from "@/app/data/landing";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "motion/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -132,9 +133,8 @@ export default function Performance() {
         alt=""
         fill
         priority
-        className="object-cover"
+        className="object-cover object-[10%_center]"
       />
-      <div className="absolute inset-0 bg-black/60" />
 
       <div className="relative z-10 mx-auto max-w-5xl">
         <div className="grid items-start gap-20 md:grid-cols-[0.95fr_1.05fr]">
@@ -142,7 +142,15 @@ export default function Performance() {
           {/* LEFT */}
           <div>
             <div className="perf-tag">
+            <motion.div
+              className="perf-tag"
+              initial={{ y: 50, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 3, ease: [0.22, 1, 0.36, 1] }}
+            >
               <Tag text="Demonstrated Performance" />
+            </motion.div>            
             </div>
             <h1 className="perf-heading mt-8 max-w-5xl font-heading text-3xl uppercase leading-[1.5] text-primary md:text-4xl">
               {landingData.demonstrated.heading}
