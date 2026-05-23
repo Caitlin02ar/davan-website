@@ -9,15 +9,12 @@ const easeOutExpo = [0.22, 1, 0.36, 1] as const;
 export default function WhySection() {
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Track when this section enters the viewport
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start end", "start center"], // 0 = bottom of section hits bottom of viewport, 1 = top of section hits center
+    offset: ["start end", "start center"], 
   });
 
-  // Background image fades in as section scrolls into view
   const bgOpacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  // Subtle scale for depth — starts slightly zoomed, settles to normal
   const bgScale = useTransform(scrollYProgress, [0, 1], [1.06, 1]);
 
   return (
@@ -44,10 +41,10 @@ export default function WhySection() {
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 1.3, ease: easeOutExpo }}
               className="flex items-center gap-3">
-              <h1 className="font-heading text-xl md:text-[3rem] text-white leading-none">
+              <h1 className="font-heading text-[2rem] md:text-[3rem] text-white leading-none">
                 {landingData.about.title}
               </h1>
-              <h1 className="font-heading text-xl md:text-[3rem] text-primary leading-none">
+              <h1 className="font-heading text-[2rem] md:text-[3rem] text-primary leading-none">
                 {landingData.about.titleColor}
               </h1>
             </motion.div>

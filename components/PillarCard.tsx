@@ -4,7 +4,6 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
  
-// ─── Helper: parse **bold** markers into <strong> ───────────────────────────
 function BoldText({ text }: { text: string }) {
   const parts = text.split(/(\*\*.*?\*\*)/g);
   return (
@@ -36,7 +35,9 @@ type PillarCardProps = {
   isActive?: boolean;
 };
  
-// ─── Component ───────────────────────────────────────────────────────────────
+const CARD_HEIGHT = "h-[520px]";
+const CARD_WIDTH = "w-[380px]";
+
 export default function PillarCard({
   number,
   title,
@@ -51,20 +52,20 @@ export default function PillarCard({
  
   if (!isActive) {
     return (
-      <div className="h-[430px] w-[340px] overflow-hidden rounded-2xl border border-white/[0.18] bg-gradient-to-br from-white/[0.13] via-white/[0.05] to-white/[0.03] shadow-[inset_0_1px_0_rgba(255,255,255,0.15),0_20px_60px_rgba(0,0,0,0.6)] backdrop-blur-md" />
+      <div className={`${CARD_HEIGHT} ${CARD_WIDTH} overflow-hidden rounded-2xl border border-white/[0.18] bg-gradient-to-br from-white/[0.13] via-white/[0.05] to-white/[0.03] shadow-[inset_0_1px_0_rgba(255,255,255,0.15),0_20px_60px_rgba(0,0,0,0.6)] backdrop-blur-md`} />
     );
   }
  
   return (
-    <div className="flex min-h-[430px] w-[340px] flex-col overflow-hidden rounded-2xl bg-primary px-7 py-6 text-dark shadow-[0_25px_80px_rgba(0,0,0,0.55)]">
-      <div className="flex items-center justify-between gap-6">
-        <h3 className="font-heading text-[44px] leading-none">{number}</h3>
-        <p className="max-w-[130px] text-right text-[0.675rem] leading-tight">
+    <div className={`flex ${CARD_HEIGHT} ${CARD_WIDTH} flex-col overflow-y-auto rounded-2xl bg-primary px-7 py-6 text-dark shadow-[0_25px_80px_rgba(0,0,0,0.55)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden`}>
+      <div className="flex items-center justify-between gap-4">
+        <h3 className="font-heading text-[44px] leading-none shrink-0">{number}</h3>
+        <p className="shrink-0 text-right text-[0.675rem] leading-tight whitespace-nowrap">
           {title}
         </p>
       </div>
  
-      <h2 className="mt-8 text-left font-heading text-[25px] leading-[1.1] max-w-[230px]">
+      <h2 className="mt-8 text-left font-heading text-[25px] leading-[1.1] max-w-[280px]">
         {heading}
       </h2>
  
@@ -81,7 +82,7 @@ export default function PillarCard({
       )}
  
       {info && (
-        <p className="pt-5 text-left text-[0.775rem] leading-[1.5] text-dark">
+        <p className="pt-5 text-left text-[0.775rem] leading-[1.5] text-dark ">
           <BoldText text={info} />
         </p>
       )}
@@ -132,4 +133,3 @@ export default function PillarCard({
     </div>
   );
 }
- 

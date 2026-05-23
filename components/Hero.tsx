@@ -60,7 +60,7 @@ export default function Hero() {
                   hidden: { x: -90, opacity: 0, clipPath: "inset(0 100% 0 0)" },
                   show: { x: 0, opacity: 1, clipPath: "inset(0 0% 0 0)", transition: { duration: 1, ease: easeOutExpo } },
                 }}
-                className="font-heading text-[1rem] font-bold uppercase text-white sm:text-[2rem] md:text-[3rem]"
+                className="font-heading text-[2rem] font-bold uppercase text-white sm:text-[2rem] md:text-[3rem]"
               >
                 {landingData.hero.titleTop}
               </motion.h1>
@@ -74,10 +74,10 @@ export default function Hero() {
                 }}
                 className="flex flex-wrap items-center justify-center gap-x-3 sm:gap-x-5"
               >
-                <h1 className="font-heading text-[1rem] font-bold uppercase text-white sm:text-[2rem] md:text-[3rem] [text-shadow:0_2px_16px_rgba(0,0,0,0.9)]">
+                <h1 className="font-heading text-[2rem] font-bold uppercase text-white sm:text-[2rem] md:text-[3rem] [text-shadow:0_2px_16px_rgba(0,0,0,0.9)]">
                   {landingData.hero.titleBottom}
                 </h1>
-                <h1 className="font-heading text-[1rem] font-bold uppercase text-primary sm:text-[2rem] md:text-[3rem] [text-shadow:0_2px_16px_rgba(0,0,0,0.7)]">
+                <h1 className="font-heading text-[2rem] font-bold uppercase text-primary sm:text-[2rem] md:text-[3rem] [text-shadow:0_2px_16px_rgba(0,0,0,0.7)]">
                   {landingData.hero.textColor}
                 </h1>
               </motion.div>

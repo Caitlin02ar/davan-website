@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import { landingData } from "@/app/data/landing";
 import PillarCard from "./PillarCard";
 
@@ -67,7 +67,7 @@ export default function OurSystem() {
   return (
     <section
       id="our-system"
-      className="relative overflow-hidden bg-dark px-6 py-20 pb-32 text-white"
+      className="relative overflow-hidden bg-dark px-4 py-16 pb-28 text-white sm:px-6 sm:py-20 sm:pb-32"
     >
       <video
         autoPlay
@@ -83,7 +83,7 @@ export default function OurSystem() {
 
         <div className="overflow-hidden">
           <motion.h2
-            className="font-heading text-4xl uppercase leading-none md:text-5xl"
+            className="font-heading text-[2rem] uppercase leading-none sm:text-4xl md:text-[3rem]"
             initial={{ x: -60, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ once: true }}
@@ -129,12 +129,11 @@ export default function OurSystem() {
           </p>
         </div>
 
-        {/* Cards + Arrow Buttons */}
         <div className="relative mx-auto mt-8 max-w-[900px]">
 
-          {/* Prev button — vertically centered on card */}
+          {/* Prev — desktop only */}
           <motion.div
-            className="absolute left-0 top-1/2 z-50 -translate-y-1/2"
+            className="absolute left-0 top-1/2 z-50 hidden -translate-y-1/2 md:block"
             initial={{ opacity: 0, x: -16 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -144,7 +143,7 @@ export default function OurSystem() {
           </motion.div>
 
           {/* Cards stack */}
-          <div className="relative left-1/2 w-[760px] -translate-x-1/2">
+          <div className="relative left-1/2 w-full max-w-[340px] -translate-x-1/2 sm:max-w-[400px] md:max-w-[760px]">
             {cards.map((card, index) => {
               const offset = index - activeIndex;
               const isActive = offset === 0;
@@ -157,7 +156,7 @@ export default function OurSystem() {
                   animate={{
                     y: 0,
                     opacity: isActive ? 1 : 0.75,
-                    x: offset * 52,
+                    x: `calc(${offset} * clamp(28px, 5vw, 52px))`,
                     scale: isActive ? 1 : 0.95,
                   }}
                   transition={{
@@ -168,11 +167,7 @@ export default function OurSystem() {
                   style={{
                     left: "50%",
                     translateX: "-50%",
-                    zIndex: isActive
-                      ? 40
-                      : offset < 0
-                      ? 20 + index
-                      : 30 - offset,
+                    zIndex: isActive ? 40 : offset < 0 ? 20 + index : 30 - offset,
                   }}
                   onClick={() => {
                     if (isActive) next();
@@ -184,14 +179,12 @@ export default function OurSystem() {
               );
             })}
 
-            <div className="invisible pointer-events-none mx-auto w-[340px]">
-              <PillarCard {...cards[activeIndex]} isActive={true} />
-            </div>
+            <div className="invisible pointer-events-none h-[520px] w-[340px] mx-auto" />
           </div>
 
-          {/* Next button — vertically centered on card */}
+          {/* Next — desktop only */}
           <motion.div
-            className="absolute right-0 top-1/2 z-50 -translate-y-1/2"
+            className="absolute right-0 top-1/2 z-50 hidden -translate-y-1/2 md:block"
             initial={{ opacity: 0, x: 16 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -200,8 +193,33 @@ export default function OurSystem() {
             <ArrowButton direction="next" onClick={next} />
           </motion.div>
 
-        </div>
+          {/* Arrow + dots — mobile only */}
+          <motion.div
+            className="mt-6 flex items-center justify-center gap-4 md:hidden"
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease, delay: 1.1 }}
+          >
+            <ArrowButton direction="prev" onClick={prev} />
 
+            <div className="flex gap-2">
+              {cards.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveIndex(i)}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    i === activeIndex ? "w-5 bg-primary" : "w-1.5 bg-white/40"
+                  }`}
+                  aria-label={`Go to card ${i + 1}`}
+                />
+              ))}
+            </div>
+
+            <ArrowButton direction="next" onClick={next} />
+          </motion.div>
+
+        </div>
       </div>
     </section>
   );

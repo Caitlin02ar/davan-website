@@ -49,7 +49,6 @@ export default function Performance() {
         "-=0.25"
       );
 
-      // 3. BULLETS — strictly sequential
       const bulletEls = section.querySelectorAll<HTMLElement>(".perf-bullet");
       bulletEls.forEach((bullet) => {
         const dot   = bullet.querySelector<HTMLElement>(".perf-bullet-dot")!;
@@ -88,25 +87,21 @@ export default function Performance() {
       framework.forEach((_, i) => {
         const progress = (i + 1) / framework.length;
 
-        // Line grows to reach this node
         tl.to(lineRef.current,
           { autoAlpha: 1, scaleX: progress, duration: 0.75, ease: "power2.inOut" },
           i === 0 ? ">" : "-=0.05"
         );
 
-        // Dot pops as line arrives
         tl.to(dotRefs.current[i],
           { autoAlpha: 1, scale: 1, duration: 0.32, ease: "back.out(2.5)" },
           "<0.55"
         );
 
-        // Title rises
         tl.to(titleRefs.current[i],
           { autoAlpha: 1, y: 0, duration: 0.38 },
           "<0.1"
         );
 
-        // Description rises
         tl.to(descRefs.current[i],
           { autoAlpha: 1, y: 0, duration: 0.38 },
           "<0.1"
@@ -129,12 +124,10 @@ export default function Performance() {
         alt=""
         fill
         priority
-        className="object-cover object-[10%_center]"
-      />
+        className="object-cover object-[10%_center]"/>
 
       <div className="relative z-10 mx-auto max-w-5xl">
         <div className="grid items-start gap-20 md:grid-cols-[0.95fr_1.05fr]">
-
           <div>
             <div className="perf-tag">
             <motion.div
@@ -142,8 +135,7 @@ export default function Performance() {
               initial={{ y: 50, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 3, ease: [0.22, 1, 0.36, 1] }}
-            >
+              transition={{ duration: 3, ease: [0.22, 1, 0.36, 1] }}>
               <Tag text="Demonstrated Performance" />
             </motion.div>            
             </div>
@@ -152,7 +144,6 @@ export default function Performance() {
             </h1>
           </div>
 
-          {/* RIGHT — bullets */}
           <div className="space-y-9 pt-3">
             {bullets.map((item, index) => (
               <div key={index} className="perf-bullet max-w-[420px]">
@@ -167,8 +158,7 @@ export default function Performance() {
                         <span
                           key={wi}
                           className="perf-bullet-word inline-block"
-                          style={{ marginRight: "0.25em" }}
-                        >
+                          style={{ marginRight: "0.25em" }}>
                           {word}
                         </span>
                       ))}

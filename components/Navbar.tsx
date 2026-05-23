@@ -20,26 +20,31 @@ export default function Navbar() {
 
   const scrollToSection = (href: string) => {
     const id = href.replace("#", "");
-    const section = document.getElementById(id);
-
-    if (!section) return;
-
-    isScrolling.current = true;
     setActiveSection(id);
     setMenuOpen(false);
 
-    section.scrollIntoView({ behavior: "smooth", block: "start" });
+    setTimeout(() => {
+      const section = document.getElementById(id);
+      if (!section) return;
 
-    const handleScrollEnd = () => {
-      isScrolling.current = false;
-      window.removeEventListener("scrollend", handleScrollEnd);
-    };
+      isScrolling.current = true;
 
-    if ("onscrollend" in window) {
-      window.addEventListener("scrollend", handleScrollEnd, { once: true });
-    } else {
-      setTimeout(() => { isScrolling.current = false; }, 1200);
-    }
+      const navbarHeight = 80;
+      const top = section.getBoundingClientRect().top + window.scrollY - navbarHeight;
+
+      window.scrollTo({ top, behavior: "smooth" });
+
+      const handleScrollEnd = () => {
+        isScrolling.current = false;
+        window.removeEventListener("scrollend", handleScrollEnd);
+      };
+
+      if ("onscrollend" in window) {
+        window.addEventListener("scrollend", handleScrollEnd, { once: true });
+      } else {
+        setTimeout(() => { isScrolling.current = false; }, 1200);
+      }
+    }, 320);
   };
 
   useEffect(() => {
@@ -74,13 +79,11 @@ export default function Navbar() {
       className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4"
     >
       <div
-        className="w-full max-w-4xl rounded-2xl overflow-hidden relative"
+        className="w-full max-w-4xl rounded-2xl relative"
         style={{
-          /* glass base — lebih transparan supaya background tembus */
           background: "rgba(18, 18, 16, 0.45)",
           backdropFilter: "blur(28px) saturate(180%)",
           WebkitBackdropFilter: "blur(28px) saturate(180%)",
-          /* border bercahaya: atas terang, bawah & samping redup */
           border: "1px solid rgba(255, 255, 255, 0.14)",
           boxShadow: `
             0 0 0 0.5px rgba(255,255,255,0.06) inset,
@@ -91,9 +94,9 @@ export default function Navbar() {
           `,
         }}
       >
-        {/* highlight garis cahaya di paling atas */}
+        {/* Top highlight line */}
         <div
-          className="absolute top-0 left-[10%] right-[10%] h-px pointer-events-none"
+          className="absolute top-0 left-[10%] right-[10%] h-px pointer-events-none z-10"
           style={{
             background:
               "linear-gradient(90deg, transparent, rgba(255,255,255,0.35) 40%, rgba(255,255,255,0.35) 60%, transparent)",
@@ -101,7 +104,7 @@ export default function Navbar() {
         />
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center h-16 px-8 gap-12">
+        <nav className="hidden md:flex items-center h-16 px-8 gap-12 rounded-2xl overflow-hidden">
           <button
             type="button"
             onClick={() => scrollToSection("#home")}
@@ -120,7 +123,6 @@ export default function Navbar() {
           <ul className="flex items-center justify-between flex-1 font-body">
             {navItems.map((item) => {
               const isActive = activeSection === item.href.replace("#", "");
-
               return (
                 <li key={item.href}>
                   <button
@@ -129,14 +131,13 @@ export default function Navbar() {
                     className={`
                       relative font-body text-xs tracking-widest px-2 py-2 rounded-lg
                       transition-all duration-200 whitespace-nowrap
-                      ${
-                        isActive
-                          ? "text-primary font-bold"
-                          : "text-white/70 hover:text-white hover:font-bold"
+                      ${isActive
+                        ? "text-primary font-bold"
+                        : "text-white/70 hover:text-white hover:font-bold"
                       }
                     `}
                   >
-                    {item.label}                    
+                    {item.label}
                   </button>
                 </li>
               );
@@ -144,7 +145,8 @@ export default function Navbar() {
           </ul>
         </nav>
 
-        <div className="flex md:hidden items-center justify-between px-5 h-14">
+        {/* Mobile top bar */}
+        <div className="flex md:hidden items-center justify-between px-5 h-14 rounded-2xl">
           <button type="button" onClick={() => scrollToSection("#home")}>
             <Image
               src="/photos/logo/DAVAN_Logo_2.png"
@@ -187,7 +189,7 @@ export default function Navbar() {
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-              className="md:hidden overflow-hidden"
+              className="md:hidden overflow-hidden rounded-b-2xl"
               style={{
                 borderTop: "1px solid rgba(255,255,255,0.08)",
                 background: "rgba(255,255,255,0.03)",
@@ -195,7 +197,6 @@ export default function Navbar() {
             >
               {navItems.map((item, i) => {
                 const isActive = activeSection === item.href.replace("#", "");
-
                 return (
                   <motion.li
                     key={item.href}
@@ -207,21 +208,15 @@ export default function Navbar() {
                       type="button"
                       onClick={() => scrollToSection(item.href)}
                       className={`
-                        flex w-full items-center gap-3 px-6 py-3.5 text-left
+                        flex w-full items-center px-6 py-3.5 text-left
                         font-body text-xs tracking-widest
                         transition-colors duration-150
-                        ${
-                          isActive
-                            ? "text-primary font-bold"
-                            : "text-white/60 hover:text-white"
+                        ${isActive
+                          ? "text-primary font-bold"
+                          : "text-white/60 hover:text-white"
                         }
                       `}
                     >
-                      <span
-                        className={`w-1.5 h-1.5 rounded-full flex-shrink-0 transition-colors duration-150 ${
-                          isActive ? "bg-primary" : "bg-white/20"
-                        }`}
-                      />
                       {item.label}
                     </button>
                   </motion.li>
