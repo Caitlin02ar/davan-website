@@ -37,7 +37,6 @@ export default function Hero() {
         </video>
         <div className="absolute inset-0 bg-black/5" />
       </motion.div>
-      {/* <div className="absolute inset-0 bg-black/50" /> */}
 
       <motion.div
         className="absolute inset-0 flex items-center justify-center px-5"
@@ -46,43 +45,76 @@ export default function Hero() {
         <div className="flex w-full max-w-7xl flex-col items-center gap-10 text-center sm:gap-12 md:gap-14 lg:gap-16">
 
           <motion.div
-            initial="hidden"
-            animate="show"
-            variants={{
-              hidden: {},
-              show: { transition: { staggerChildren: 0.18, delayChildren: 0.25 } },
-            }}
-            className="flex flex-col items-center leading-none"
-          >
-            <div className="overflow-hidden">
-              <motion.h1
-                variants={{
-                  hidden: { x: -90, opacity: 0, clipPath: "inset(0 100% 0 0)" },
-                  show: { x: 0, opacity: 1, clipPath: "inset(0 0% 0 0)", transition: { duration: 1, ease: easeOutExpo } },
-                }}
-                className="font-heading text-[2rem] font-bold uppercase text-white sm:text-[2rem] md:text-[3rem]"
-              >
-                {landingData.hero.titleTop}
-              </motion.h1>
-            </div>
+  initial="hidden"
+  animate="show"
+  variants={{
+    hidden: {},
+    show: { transition: { staggerChildren: 0.18, delayChildren: 0.25 } },
+  }}
+  className="flex flex-col items-center leading-none"
+>
+  {/* MOBILE HEADING */}
+  <motion.h1
+    variants={{
+      hidden: { x: -90, opacity: 0, clipPath: "inset(0 100% 0 0)" },
+      show: {
+        x: 0,
+        opacity: 1,
+        clipPath: "inset(0 0% 0 0)",
+        transition: { duration: 1, ease: easeOutExpo },
+      },
+    }}
+    className="block text-center font-heading text-[2rem] uppercase text-white md:hidden tracking-normal leading-[1.3]"
+  >
+    INTELLIGENCE
+    <br />
+    BEHIND YOUR
+    <br />
+    <span className="text-primary">GROWTH.</span>
+  </motion.h1>
 
-            <div className="overflow-hidden">
-              <motion.div
-                variants={{
-                  hidden: { x: -90, opacity: 0, clipPath: "inset(0 100% 0 0)" },
-                  show: { x: 0, opacity: 1, clipPath: "inset(0 0% 0 0)", transition: { duration: 1, ease: easeOutExpo } },
-                }}
-                className="flex flex-wrap items-center justify-center gap-x-3 sm:gap-x-5"
-              >
-                <h1 className="font-heading text-[2rem] font-bold uppercase text-white sm:text-[2rem] md:text-[3rem] [text-shadow:0_2px_16px_rgba(0,0,0,0.9)]">
-                  {landingData.hero.titleBottom}
-                </h1>
-                <h1 className="font-heading text-[2rem] font-bold uppercase text-primary sm:text-[2rem] md:text-[3rem] [text-shadow:0_2px_16px_rgba(0,0,0,0.7)]">
-                  {landingData.hero.textColor}
-                </h1>
-              </motion.div>
-            </div>
-          </motion.div>
+  {/* DESKTOP HEADING */}
+  <div className="hidden flex-col items-center md:flex">
+    <div className="overflow-hidden">
+      <motion.h1
+        variants={{
+          hidden: { x: -90, opacity: 0, clipPath: "inset(0 100% 0 0)" },
+          show: {
+            x: 0,
+            opacity: 1,
+            clipPath: "inset(0 0% 0 0)",
+            transition: { duration: 1, ease: easeOutExpo },
+          },
+        }}
+        className="font-heading text-[3rem] uppercase text-white"
+      >
+        {landingData.hero.titleTop}
+      </motion.h1>
+    </div>
+
+    <div className="overflow-hidden">
+      <motion.div
+        variants={{
+          hidden: { x: -90, opacity: 0, clipPath: "inset(0 100% 0 0)" },
+          show: {
+            x: 0,
+            opacity: 1,
+            clipPath: "inset(0 0% 0 0)",
+            transition: { duration: 1, ease: easeOutExpo },
+          },
+        }}
+        className="flex items-center justify-center gap-x-5"
+      >
+        <h1 className="font-heading text-[3rem] uppercase text-white [text-shadow:0_2px_16px_rgba(0,0,0,0.9)]">
+          {landingData.hero.titleBottom}
+        </h1>
+        <h1 className="font-heading text-[3rem] uppercase text-primary [text-shadow:0_2px_16px_rgba(0,0,0,0.7)]">
+          {landingData.hero.textColor}
+        </h1>
+      </motion.div>
+    </div>
+  </div>
+</motion.div>
 
           {/* DESCRIPTION */}
           <motion.p
@@ -92,7 +124,7 @@ export default function Hero() {
               hidden: {},
               show: { transition: { staggerChildren: 0.06, delayChildren: 1 } },
             }}
-            className="max-w-[90%] font-body text-sm font-light leading-relaxed text-white sm:max-w-xl sm:text-base md:max-w-xl md:text-md [text-shadow:0_2px_12px_rgba(0,0,0,0.8),0_1px_4px_rgba(0,0,0,0.6)]"
+            className="max-w-[90%] font-body text-[1rem] font-light leading-relaxed text-white sm:max-w-xl sm:text-base md:max-w-xl md:text-[0.875rem] [text-shadow:0_2px_12px_rgba(0,0,0,0.8),0_1px_4px_rgba(0,0,0,0.6)]"
           >
             {words.map((word, index) => (
               <motion.span

@@ -10,15 +10,28 @@ const ease = [0.22, 1, 0.36, 1] as const;
 function ArrowButton({
   direction,
   onClick,
+  mobile = false,
 }: {
   direction: "prev" | "next";
   onClick: () => void;
+  mobile?: boolean;
 }) {
   return (
     <motion.button
       type="button"
-      onClick={onClick}
-      className="group flex h-11 w-11 items-center justify-center rounded-full border border-primary bg-transparent text-primary transition-colors duration-300 hover:bg-primary hover:text-dark"
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick();
+      }}
+      className={`
+        group flex items-center justify-center rounded-full border border-primary
+        bg-transparent transition-colors duration-300
+        ${
+          mobile
+            ? "h-10 w-10 text-dark hover:bg-dark hover:text-primary outline outline-dark"
+            : "h-11 w-11 text-primary hover:bg-primary hover:text-dark outline outline-dark"
+        }
+      `}
       whileHover={{ scale: 1.08 }}
       whileTap={{ scale: 0.93 }}
       transition={{ duration: 0.2, ease }}
@@ -30,7 +43,7 @@ function ArrowButton({
         viewBox="0 0 18 18"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="transition-colors duration-300"
+        className={mobile ? "-rotate-90" : ""}
       >
         {direction === "prev" ? (
           <path
@@ -69,28 +82,45 @@ export default function OurSystem() {
       id="our-system"
       className="relative overflow-hidden bg-dark px-4 py-16 pb-28 text-white sm:px-6 sm:py-20 sm:pb-32"
     >
+      {/* DESKTOP VIDEO FULL SECTION */}
       <video
         autoPlay
         muted
         loop
         playsInline
-        className="absolute inset-0 h-full w-full object-cover opacity-45"
+        className="absolute inset-0 hidden h-full w-full object-cover opacity-45 md:block"
       >
         <source src="/video/Pillar.webm" type="video/webm" />
       </video>
 
-      <div className="relative z-10 mx-auto max-w-4xl text-center">
+      {/* MOBILE VIDEO ONLY TOP AREA */}
+      <div className="absolute inset-x-0 top-0 h-[430px] md:hidden">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="h-full w-full object-cover opacity-45"
+        >
+          <source src="/video/Pillar.webm" type="video/webm" />
+        </video>
 
+        <div className="absolute inset-0 bg-dark/35" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-dark" />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-4xl text-center">
         <div className="overflow-hidden">
           <motion.h2
-            className="font-heading text-[2rem] uppercase leading-none sm:text-4xl md:text-[3rem]"
+            className="font-heading text-[2rem] uppercase leading-[1] sm:text-4xl md:text-[3rem]"
             initial={{ x: -60, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.75, ease }}
           >
-            {landingData.system.heading}{" "}
-            <span className="text-primary">
+            {landingData.system.heading}
+
+            <span className="block text-primary sm:inline">
               {landingData.system.headingColor}
             </span>
           </motion.h2>
@@ -98,7 +128,7 @@ export default function OurSystem() {
 
         <div className="overflow-hidden">
           <motion.p
-            className="mt-4 text-[0.857rem] font-semibold"
+            className="mt-4 text-[1.15rem] font-semibold md:text-[1rem]"
             initial={{ x: -60, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ once: true }}
@@ -109,7 +139,7 @@ export default function OurSystem() {
         </div>
 
         <div className="overflow-hidden">
-          <p className="mx-auto mt-5 max-w-[620px] text-[0.75rem] font-light leading-relaxed text-white">
+          <p className="mx-auto mt-5 text-[1rem] font-light leading-relaxed text-white md:max-w-[620px] md:text-[0.875rem]">
             {landingData.system.description.split(" ").map((word, index) => (
               <motion.span
                 key={index}
@@ -130,8 +160,7 @@ export default function OurSystem() {
         </div>
 
         <div className="relative mx-auto mt-8 max-w-[900px]">
-
-          {/* Prev — desktop only */}
+          {/* DESKTOP PREV */}
           <motion.div
             className="absolute left-0 top-1/2 z-50 hidden -translate-y-1/2 md:block"
             initial={{ opacity: 0, x: -16 }}
@@ -142,8 +171,8 @@ export default function OurSystem() {
             <ArrowButton direction="prev" onClick={prev} />
           </motion.div>
 
-          {/* Cards stack */}
-          <div className="relative left-1/2 w-full max-w-[340px] -translate-x-1/2 sm:max-w-[400px] md:max-w-[760px]">
+          {/* DESKTOP CARD STACK */}
+          <div className="relative left-1/2 hidden w-full max-w-[760px] -translate-x-1/2 md:block">
             {cards.map((card, index) => {
               const offset = index - activeIndex;
               const isActive = offset === 0;
@@ -167,7 +196,11 @@ export default function OurSystem() {
                   style={{
                     left: "50%",
                     translateX: "-50%",
-                    zIndex: isActive ? 40 : offset < 0 ? 20 + index : 30 - offset,
+                    zIndex: isActive
+                      ? 40
+                      : offset < 0
+                        ? 20 + index
+                        : 30 - offset,
                   }}
                   onClick={() => {
                     if (isActive) next();
@@ -179,10 +212,57 @@ export default function OurSystem() {
               );
             })}
 
-            <div className="invisible pointer-events-none h-[520px] w-[340px] mx-auto" />
+            <div className="invisible pointer-events-none mx-auto h-[520px] w-[380px]" />
           </div>
 
-          {/* Next — desktop only */}
+          {/* MOBILE CARD STACK - NO VIDEO BG */}
+          <div className="relative left-1/2 block w-full max-w-[380px] -translate-x-1/2 md:hidden">
+            {cards.map((card, index) => {
+              const isActive = index === activeIndex;
+              const stackOrder = index - activeIndex;
+
+              if (stackOrder < 0) return null;
+
+              return (
+                <motion.div
+                  key={card.number}
+                  className="absolute top-0 cursor-pointer"
+                  initial={{ y: 60, opacity: 0 }}
+                  animate={{
+                    y: isActive ? 0 : 34 + stackOrder * 22,
+                    x: 0,
+                    scale: isActive ? 1 : 0.96 - stackOrder * 0.025,
+                    opacity: isActive ? 1 : 0.86,
+                  }}
+                  transition={{ duration: 0.65, ease }}
+                  style={{
+                    left: "50%",
+                    translateX: "-50%",
+                    zIndex: isActive ? 100 : 100 - stackOrder,
+                  }}
+                  onClick={() => {
+                    if (isActive) next();
+                    else setActiveIndex(index);
+                  }}
+                >
+                  <div className="relative">
+                    <PillarCard {...card} isActive={isActive} />
+
+                    {isActive && (
+                      <div className="absolute bottom-6 right-6 z-[200] flex flex-row gap-3">
+                        <ArrowButton direction="next" onClick={prev} mobile />
+                        <ArrowButton direction="prev" onClick={next} mobile />
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
+              );
+            })}
+
+            <div className="invisible pointer-events-none mx-auto h-[610px] w-[380px]" />
+          </div>
+
+          {/* DESKTOP NEXT */}
           <motion.div
             className="absolute right-0 top-1/2 z-50 hidden -translate-y-1/2 md:block"
             initial={{ opacity: 0, x: 16 }}
@@ -192,33 +272,6 @@ export default function OurSystem() {
           >
             <ArrowButton direction="next" onClick={next} />
           </motion.div>
-
-          {/* Arrow + dots — mobile only */}
-          <motion.div
-            className="mt-6 flex items-center justify-center gap-4 md:hidden"
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease, delay: 1.1 }}
-          >
-            <ArrowButton direction="prev" onClick={prev} />
-
-            <div className="flex gap-2">
-              {cards.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActiveIndex(i)}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    i === activeIndex ? "w-5 bg-primary" : "w-1.5 bg-white/40"
-                  }`}
-                  aria-label={`Go to card ${i + 1}`}
-                />
-              ))}
-            </div>
-
-            <ArrowButton direction="next" onClick={next} />
-          </motion.div>
-
         </div>
       </div>
     </section>
