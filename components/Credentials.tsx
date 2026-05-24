@@ -7,7 +7,7 @@ import { landingData } from "@/app/data/landing";
 
 export default function Credentials() {
   return (
-    <section className="relative w-full overflow-hidden bg-dark py-16">
+    <section className="relative w-full overflow-hidden bg-dark py-16 pb-0">
       <div className="mb-10 flex items-center justify-center">
         <motion.div
           initial={{ y: 50, opacity: 0 }}

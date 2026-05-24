@@ -120,12 +120,11 @@ export default function OurSystem() {
           >
             {landingData.system.heading}
 
-            <span className="block text-primary sm:inline">
+            <span className="block text-primary md:ml-3 md:inline">
               {landingData.system.headingColor}
             </span>
           </motion.h2>
         </div>
-
         <div className="overflow-hidden">
           <motion.p
             className="mt-4 text-[1.15rem] font-semibold md:text-[1rem]"

@@ -36,7 +36,7 @@ type PillarCardProps = {
   isActive?: boolean;
 };
 
-const CARD_HEIGHT = "min-h-[620px] md:min-h-[520px]";
+const CARD_HEIGHT = "min-h-[620px] md:min-h-[620px]";
 const CARD_WIDTH = "w-[88vw] max-w-[380px]";
 
 export default function PillarCard({

@@ -182,9 +182,7 @@ export default function Performance() {
     <section
       id="results"
       ref={sectionRef}
-      className="relative overflow-hidden bg-[#0F0F11] px-6 py-24"
-    >
-      {/* DESKTOP BG */}
+      className="relative overflow-hidden bg-[#0F0F11] px-6 py-24 pb-0 md:pb-16">
       <div className="absolute inset-0 hidden md:block">
         <Image
           src="/photos/performance-bg.webp"
@@ -381,7 +379,7 @@ function MobileFrameworkItem({
         ref={(el) => {
           dotRefs.current[index] = el;
         }}
-        className="mx-auto block h-[8px] w-[8px] rounded-full bg-primary"
+        className="mx-auto mt-[4px] block h-[8px] w-[8px] rounded-full bg-primary"
       />
 
       <h4
