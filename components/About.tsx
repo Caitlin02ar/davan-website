@@ -155,7 +155,6 @@ export default function About() {
             />
           </div>
 
-          {/* RIGHT BENTO */}
           <div>
             <div className="mb-5 overflow-hidden">
               <motion.h3
@@ -195,7 +194,7 @@ export default function About() {
                     ${index >= 2 ? "col-span-2" : ""}
                   `}
                 >
-                  <h4 className="mb-3 font-body text-xl font-bold leading-tight text-center md:text-left">
+                  <h4 className="mb-3 font-body text-[1rem] md:text-[2rem] font-bold leading-tight text-center md:text-left">
                     {item.title}
                   </h4>
 

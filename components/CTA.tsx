@@ -56,7 +56,7 @@ export default function CTA() {
                 whileInView={{ x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1.2, delay: isMobile ? 0.25 : 0, ease }}
-                className="font-heading text-[32px] font-black uppercase leading-[1.2] tracking-widest sm:text-[42px] md:text-[2rem]"
+                className="font-heading text-[1.5rem] font-black uppercase leading-[1.2] tracking-widest sm:text-[2rem] md:text-[2rem] lg:text-[2.5rem]"
               >
                 <span className="block text-primary">{data.headingColor}</span>
                 <span className="block text-white">THE GAPS IN</span>
@@ -106,7 +106,7 @@ export default function CTA() {
               </p>
             </RightReveal>
 
-            <div className="flex flex-col gap-4 text-[1.2rem] text-white md:text-[1rem]">
+            <div className="flex flex-col gap-4 text-[1rem] sm:text-[1.2rem] text-white md:text-[1rem]">
               <ContactRow type="location" text={data.location} />
               <ContactRow type="email" text={data.email} />
             </div>
@@ -120,7 +120,7 @@ export default function CTA() {
             </RightReveal>
 
             <RightReveal className="mt-24 w-full text-center md:w-auto md:text-left">
-              <p className="text-center text-[1rem] text-white md:text-right md:text-[0.625rem]">
+              <p className="text-center text-[0.675rem] text-white md:text-right md:text-[0.875rem]">
                 {landingData.copyright}
               </p>
             </RightReveal>

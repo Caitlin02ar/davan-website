@@ -16,8 +16,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "DAVAN Website",
-  description: "DAVAN WEBSITE",
+  title: "DAVAN Digital",
+  description: "DAVAN Digital",
 };
 
 export default function RootLayout({
